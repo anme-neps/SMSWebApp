@@ -23,7 +23,7 @@ namespace SMS.WebApp.Host.Pages
             var result = await _services.LoginAsync(this.Account);
             if (result.IsSuccess)
             { 
-                return RedirectToPage("./Index");
+                return RedirectToPage("/Index");
             }
             return Page();
         }

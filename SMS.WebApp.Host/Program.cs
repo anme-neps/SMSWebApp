@@ -21,7 +21,7 @@ namespace SMS.WebApp.Host
             builder.Services.AddDbContext<SMSDbContext>(options =>
                 options.UseSqlServer(connectionString));
             // used user and roles for token
-            builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<SMSDbContext>().AddDefaultTokenProviders();
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<SMSDbContext>();
             builder.Services.AddTransient<IAccountRepositories, AccountRepositories>();
             builder.Services.AddTransient<IAccountServices, AccountServices>();
             builder.Services.AddRazorPages();
@@ -41,8 +41,8 @@ namespace SMS.WebApp.Host
 
             app.UseRouting();
 
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.MapRazorPages();
 

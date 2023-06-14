@@ -14,7 +14,11 @@ namespace SMS.WebApp.Data.Models.ViewModels
         [Required]
         [EmailAddress]
         public string Email { get; set; }
-        
+        [Required]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
+        [Required]
+        [Compare("Password", ErrorMessage ="Confirm password didn't match with original password")]
+        public string ConfirmPassword { get; set; }
     }
 }

@@ -1,0 +1,33 @@
+﻿@page
+@model SMS.WebApp.Host.Pages.Account.SignUpModel
+@{
+}
+<div class="">
+    <form method="post" asp-page="SignUp" style="width: 22rem;">
+        <!-- Username input -->
+        <div class="form-outline mb-4">
+            <label class="form-label" for="form2Example1">Username</label>
+            <input type="text" id="form2Example1" asp-for="@Model.AccountRegister.UserName" class="form-control" />
+        </div>
+        <!-- Email input -->
+        <div class="form-outline mb-4">
+            <label class="form-label" for="form2Example1">Email address</label>
+            <input type="email" id="form2Example1" asp-for="@Model.AccountRegister.Email" class="form-control" />
+        </div>
+
+        <!-- Password input -->
+        <div class="form-outline mb-4">
+            <label class="form-label" for="password">Password</label>
+            <input type="password" id="password" asp-for="@Model.AccountRegister.Password" class="form-control" />
+        </div>
+
+        <!-- Confirm password input -->
+        <div class="form-outline mb-4">
+            <label class="form-label" for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" asp-for="@Model.AccountRegister.ConfirmPassword" class="form-control" />
+        </div>
+
+        <!-- Submit button -->
+        <input type="submit" class="btn btn-primary btn-block mb-4" />
+    </form>
+</div>

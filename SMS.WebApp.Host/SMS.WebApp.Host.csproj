@@ -19,4 +19,8 @@
     <ProjectReference Include="..\SMS.WebApp.Services\SMS.WebApp.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Student\" />
+  </ItemGroup>
+
 </Project>
