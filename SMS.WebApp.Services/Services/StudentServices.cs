@@ -38,9 +38,9 @@ namespace SMS.WebApp.Services.Services
             return result;
         }
 
-        public Task<DataResult> DeleteStudent(Guid studentId)
+        public async Task<DataResult> DeleteStudent(Guid studentId)
         {
-            throw new NotImplementedException();
+            return await _studentRepo.DeleteStudent(studentId);
         }
 
         public async Task<DataResult<StudentViewModel>> GetAllStudents()
@@ -48,7 +48,7 @@ namespace SMS.WebApp.Services.Services
             // Define return type variable
             DataResult<StudentViewModel> result = new DataResult<StudentViewModel>();
             // Get data from student repositories
-            var response = await _studentRepo.GetAllStudents();
+            DataResult<Students> response = await _studentRepo.GetAllStudents();
             // Assign value to defined return variable("result") from repositories response
             result.Message = response.Message;
             result.IsSuccess = response.IsSuccess;
@@ -56,13 +56,33 @@ namespace SMS.WebApp.Services.Services
             result.Data = response.Data.Select(s => new StudentViewModel
                                         {
                                             FirstName = s.FirstName,
+                                            LastName = s.LastName,
+                                            DOB = s.DOB,
+                                            Gender = s.Gender,
+                                            PhoneNumber = s.PhoneNumber,
+                                            GradeLevel = s.GradeLevel
                                         }).ToList();
             return result;
         }
 
-        public Task<DataResult> UpdateStudent(StudentViewModel studentArgs)
+        public async Task<DataResult> UpdateStudent(StudentViewModel studentArgs)
         {
-            throw new NotImplementedException();
+            Students stu = new Students
+            {
+                FirstName = studentArgs.FirstName,
+                LastName = studentArgs.LastName,
+                DOB = studentArgs.DOB,
+                Gender = studentArgs.Gender,
+                PhoneNumber = studentArgs.PhoneNumber,
+                GradeLevel = studentArgs.GradeLevel,
+                CreateUserName = "",
+                CreatedDate = DateTime.UtcNow,
+                IsDeleted = false,
+                UpdateUserName = null,
+                UpdatedDate = DateTime.UtcNow,
+            };
+            var result = await _studentRepo.UpdateStudent(stu);
+            return result;
         }
     }
 }

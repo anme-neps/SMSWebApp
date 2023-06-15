@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using SMS.WebApp.Core.IRepositories;
 using SMS.WebApp.Data.Helper;
 using SMS.WebApp.Data.Models.ViewModels;
@@ -59,6 +60,21 @@ namespace SMS.WebApp.Core.Repositories
                 result.Message = "Could not register user";
             }
             return result;
+        }
+
+        public async Task<string> GetCurrentUserName(HttpContext httpContext)
+        {
+            var user = await _userManager.GetUserAsync(httpContext.User);
+            return user.UserName;
+        }
+
+        public async Task<DataResult> LogoutAsync()
+        {
+            await _signInManager.SignOutAsync();
+            return new DataResult() { IsSuccess = true, Message = "Logout successful" };
+            //DataResult result = new DataResult() { IsSuccess = true, Message ="Logout successful"};
+            //result.IsSuccess = true;
+            //result.Message = "Logout successful";
         }
     }
 }

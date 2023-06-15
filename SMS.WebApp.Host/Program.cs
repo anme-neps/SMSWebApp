@@ -24,6 +24,8 @@ namespace SMS.WebApp.Host
             builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<SMSDbContext>();
             builder.Services.AddTransient<IAccountRepositories, AccountRepositories>();
             builder.Services.AddTransient<IAccountServices, AccountServices>();
+            builder.Services.AddTransient<IStudentRepositories, StudentRepositories>();
+            builder.Services.AddTransient<IStudentServices, StudentServices>();
             builder.Services.AddRazorPages();
 
             var app = builder.Build();

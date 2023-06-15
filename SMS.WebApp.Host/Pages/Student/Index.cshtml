@@ -1,0 +1,21 @@
+﻿@page
+@model SMS.WebApp.Host.Pages.Student.IndexModel
+@{
+}
+<div class="container">
+    <div class="row">
+        @if(Model.Students.Count > 0)
+        {      
+            @foreach(var item in Model.Students)
+            {                
+                <div class="col">
+                    item.FirstName
+                </div>
+            }
+        }
+        else
+        {
+            <p>No data.</p>
+        }
+    </div>
+</div>
