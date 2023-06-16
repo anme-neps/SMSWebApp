@@ -12,5 +12,6 @@ namespace SMS.WebApp.Services.IServices
     {
         Task<DataResult> LoginAsync(LoginViewModel model);
         Task<DataResult> RegisterAsync(RegisterViewModel model);
+        Task<DataResult> LogoutAsync();
     }
 }
