@@ -1,8 +1,8 @@
 ﻿@page
-@model SMS.WebApp.Host.Pages.Student.CreateModel
+@model SMS.WebApp.Host.Pages.Student.UpdateModel
 @{
 }
-<form method="post" asp-page="Student/Create">
+<form method="post" asp-page="Student/Update">
     <div class="row g-3">
         <div class="col">
             <input type="text" asp-for="@Model.StudentViewModel.FirstName" class="form-control" placeholder="First name" aria-label="First name">
@@ -19,9 +19,9 @@
             <select class="form-select" asp-for="@Model.StudentViewModel.Gender" aria-label="Gender">
                 <option selected>Select Gender</option>
                 @{
-                    if(Model.GenderList.Count > 0)
+                    if (Model.GenderList.Count > 0)
                     {
-                        foreach(var item in Model.GenderList)
+                        foreach (var item in Model.GenderList)
                         {
                             <option value="@item">@item</option>
                         }
@@ -39,7 +39,8 @@
         </div>
     </div>
     <div>
-        <input type="submit" class="btn btn-primary" />
+        <input type="submit" value="Update" class="btn btn-primary" />
         <a class="btn btn-danger" asp-page="/Student/Index" role="button">Cancel</a>
     </div>
 </form>
+

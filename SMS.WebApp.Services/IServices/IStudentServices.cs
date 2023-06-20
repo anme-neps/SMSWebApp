@@ -1,5 +1,6 @@
 ﻿using SMS.WebApp.Data.Helper;
 using SMS.WebApp.Data.Models.DataModels;
+using SMS.WebApp.Data.Models.Enums;
 using SMS.WebApp.Data.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -15,5 +16,7 @@ namespace SMS.WebApp.Services.IServices
         Task<DataResult> UpdateStudent(StudentViewModel studentArgs);
         Task<DataResult> DeleteStudent(Guid studentId);
         Task<DataResult<StudentViewModel>> GetAllStudents();
+        Task<DataResult<GenderEnum>> GetGenderList();
+        Task<DataResult<StudentViewModel>> GetStudentByID(Guid studentId);
     }
 }
