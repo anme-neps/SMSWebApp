@@ -27,5 +27,18 @@ namespace SMS.WebApp.Host.Pages.Student
                 return NotFound();
             }
         }
+
+        public async Task<IActionResult> OnPostDelete(Guid id)
+        {
+            var result = await _studentServices.DeleteStudent(id);
+            if (result.IsSuccess)
+            {
+                return Page();
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
     }
 }

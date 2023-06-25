@@ -41,7 +41,14 @@ namespace SMS.WebApp.Core.Repositories
             DataResult result = new DataResult();
             try
             {
-                await _context.Students.Where(w => w.Id == studentId).ExecuteDeleteAsync();
+                //await _context.Students.Where(w => w.Id == studentId).ExecuteDeleteAsync();
+                var user = await _context.Students.Where(w => w.Id == studentId).FirstOrDefaultAsync();
+                if(user == null)
+                {
+                    result.IsSuccess = false;
+                    result.Message = "No user found";
+                }
+                user.IsDeleted = true;
                 await _context.SaveChangesAsync();
                 result.IsSuccess = true;
                 result.Message = "Student deleted successfully";
@@ -97,8 +104,15 @@ namespace SMS.WebApp.Core.Repositories
                 student.FirstName = studentArgs.FirstName;
                 student.LastName = studentArgs.LastName;
                 student.PhoneNumber = studentArgs.PhoneNumber;
+                student.Gender = studentArgs.Gender;
+                student.GradeLevel = studentArgs.GradeLevel;
+                student.DOB = studentArgs.DOB;
+                student.UpdateUserName = studentArgs.UpdateUserName;
+                student.UpdatedDate = studentArgs.UpdatedDate;
                 //student.ExecuteUpdateAsync();
                 await _context.SaveChangesAsync();
+                result.IsSuccess = true;
+                result.Message = "Update student successful";
             }
             catch(Exception ex)
             {

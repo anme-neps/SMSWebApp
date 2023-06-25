@@ -30,16 +30,21 @@
                         <td>@item.GradeLevel</td>
                         <td>@item.PhoneNumber</td>
                         <td>
-                            <a asp-page="/Student/Update" asp-route-id="@item.StudentId" role="button">
-                                <i class="fa-solid fa-pencil"></i>
-                            </a>
+                            <form method="post">
+                                <a asp-page="/Student/Update" asp-route-id="@item.StudentId" role="button">
+                                    <i class="fa-solid fa-pencil"></i>
+                                </a>
+                                <button type="submit" asp-page="/Student/Index" asp-page-handler="Delete" class="deleteButton" asp-route-id="@item.StudentId">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 }
             }
             else
             {
-                <p>No data.</p>
+                <tr>No data.</tr>
             }
         </tbody>
     </table>

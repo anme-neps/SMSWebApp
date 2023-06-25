@@ -1,3 +1,8 @@
 ﻿.hidden {
     display: none
 }
+.deleteButton {
+    background: transparent;
+    border: hidden;
+    color: #871818;
+}
