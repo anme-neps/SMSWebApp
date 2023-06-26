@@ -34,7 +34,8 @@
                                 <a asp-page="/Student/Update" asp-route-id="@item.StudentId" role="button">
                                     <i class="fa-solid fa-pencil"></i>
                                 </a>
-                                <button type="submit" asp-page="/Student/Index" asp-page-handler="Delete" class="deleteButton" asp-route-id="@item.StudentId">
+                                <button type="submit" asp-page="/Student/Index" asp-page-handler="Delete" class="deleteButton" asp-route-id="@item.StudentId" 
+                                    >
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </form>
@@ -44,8 +45,31 @@
             }
             else
             {
-                <tr>No data.</tr>
+                <tr>
+                    <td colspan="7" class="text-center">
+                        No data.
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
 </div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            alert("We are in index page!!!")
+        })
+
+        //function onDeleteButton()
+        //{
+        //    console.log("we are on delete button function")
+        //    confirm('Do you want to delete Student?')
+        //}
+
+        $(".deleteButton").click(function (){
+            return confirm('Do you want to delete Student?')
+        })
+    </script>
+}

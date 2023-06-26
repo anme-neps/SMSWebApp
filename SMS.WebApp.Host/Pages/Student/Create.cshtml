@@ -2,7 +2,9 @@
 @model SMS.WebApp.Host.Pages.Student.CreateModel
 @{
 }
-<form method="post" asp-page="Student/Create">
+<div>
+    <h2> Add Student</h2>
+    <form method="post" asp-page="Student/Create">
     <div class="row g-3">
         <div class="col">
             <input type="text" asp-for="@Model.StudentViewModel.FirstName" class="form-control" placeholder="First name" aria-label="First name">
@@ -43,3 +45,4 @@
         <a class="btn btn-danger" asp-page="/Student/Index" role="button">Cancel</a>
     </div>
 </form>
+</div>
