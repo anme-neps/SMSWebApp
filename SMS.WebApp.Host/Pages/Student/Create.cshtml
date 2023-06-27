@@ -7,7 +7,7 @@
     <form method="post" asp-page="Student/Create">
     <div class="row g-3">
         <div class="col">
-            <input type="text" asp-for="@Model.StudentViewModel.FirstName" class="form-control" placeholder="First name" aria-label="First name">
+            <input type="text" asp-for="@Model.StudentViewModel.FirstName" class="firstName form-control" placeholder="First name" aria-label="First name">
         </div>
         <div class="col">
             <input type="text" class="form-control" asp-for="@Model.StudentViewModel.LastName" placeholder="Last name" aria-label="Last name">
@@ -42,7 +42,31 @@
     </div>
     <div>
         <input type="submit" class="btn btn-primary" />
+        <input type="submit" value="Gender" id ="genderList" class="btn btn-primary" />
         <a class="btn btn-danger" asp-page="/Student/Index" role="button">Cancel</a>
     </div>
 </form>
 </div>
+
+@section scripts
+{
+    <script type="text/javascript">
+
+        $("#genderList").click(function () {
+            //var fisrtName = $(".firstName").val();
+            console.log("testt on gender button")
+            $.ajax({
+                url: "@Url.Page("/Create")?handler=Gender",
+                method: "GET",
+                //data : firstName
+                success: function(response) {
+                    console.log(response)
+                    //TODO
+
+                    alert(response.data);
+                    alert(response.message);
+                }
+            })
+        })
+    </script>
+}
