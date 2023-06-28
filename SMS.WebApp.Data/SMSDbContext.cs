@@ -16,5 +16,6 @@ namespace SMS.WebApp.Data
 
         }
         public DbSet<Students> Students { get; set; }
+        public DbSet<Teacher> Teachers { get; set; }
     }
 }
