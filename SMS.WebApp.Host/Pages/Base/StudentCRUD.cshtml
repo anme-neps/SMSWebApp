@@ -2,3 +2,52 @@
 @model SMS.WebApp.Host.Pages.Base.StudentCRUDModel
 @{
 }
+<div class="container">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Gender</th>
+                <th scope="col">D.O.B.</th>
+                <th scope="col">Grade Level</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Students.Count > 0)
+            {
+                @foreach (var item in Model.Students)
+                {
+                    <tr>
+                        <td class="hidden">@item.StudentId</td>
+                        <td>@item.FirstName</td>
+                        <td>@item.LastName</td>
+                        <td>@item.Gender</td>
+                        <td>@item.DOB</td>
+                        <td>@item.GradeLevel</td>
+                        <td>@item.PhoneNumber</td>
+                        <td>
+                            <button type="submit" id="editButton" class="deleteButton">
+                                <i class="fa-solid fa-pencil"></i>
+                            </button>
+                            <button type="submit" id="deleteButton" class="deleteButton">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="7" class="text-center">
+                        No data.
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
