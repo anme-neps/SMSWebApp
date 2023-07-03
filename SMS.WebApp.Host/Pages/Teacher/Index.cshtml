@@ -34,12 +34,12 @@
                         <td>@item.Phone</td>
                         <td>@item.Email</td>
                         <td>
-                            <button asp-route-id="@item.Id" class="transparentButton">
+                            <button id="updateTeacher" onclick="UpdateTeacher('@item.Id')" class="transparentButton">
                                 <i class="fa-solid fa-pencil"></i>
                             </button>
-                            <button type="submit"  class="transparentButton" asp-route-id="@item.Id">
+                            <a asp-page="/Teacher/Index" asp-route-id="@item.Id" class="deleteButton" asp-page-handler="DeleteTeacher" role="button">
                                 <i class="fa-solid fa-trash"></i>
-                            </button>
+                            </a>
                         </td>
                     </tr>
                 }
@@ -67,18 +67,19 @@
                     <form method="post" asp-page="/Teacher/Index">
                         <div class="row g-3 form-space">
                             <div class="col">
-                                <input type="text" class="form-control" asp-for="@Model.TeacherVM.FirstName" class="firstName form-control" placeholder="First name" aria-label="First name">
+                                <input type="text" class="form-control hidden" asp-for="@Model.TeacherVM.Id" id="teacherId" />
+                                <input type="text" class="form-control" asp-for="@Model.TeacherVM.FirstName" id="firstName" class="firstName form-control" placeholder="First name" aria-label="First name">
                             </div>
                             <div class="col">
-                                <input type="text" class="form-control" asp-for="@Model.TeacherVM.LastName" placeholder="Last name" aria-label="Last name">
+                                <input type="text" class="form-control" asp-for="@Model.TeacherVM.LastName" id="lastName" placeholder="Last name" aria-label="Last name">
                             </div>
                         </div>
                         <div class="row g-3 form-space">
                             <div class="col">
-                                <input type="date" asp-for="@Model.TeacherVM.DOB" class="form-control" placeholder="D.O.B." aria-label="DateOfBirth">
+                                <input type="date" asp-for="@Model.TeacherVM.DOB" id="dob" class="form-control" placeholder="D.O.B." aria-label="DateOfBirth">
                             </div>
                             <div class="col">
-                                <select class="form-select" asp-for="@Model.TeacherVM.Gender" aria-label="Gender">
+                                <select class="form-select" asp-for="@Model.TeacherVM.Gender" id="gender" aria-label="Gender">
                                     <option selected>Select Gender</option>
                                     @{
                                         if (Model.GenderList.Count > 0)
@@ -94,13 +95,13 @@
                         </div>
                         <div class="row g-3 form-space">
                             <div class="col">
-                                <input type="text" asp-for="@Model.TeacherVM.Subject" class="subject form-control" placeholder="Subject" aria-label="Subject">
+                                <input type="text" asp-for="@Model.TeacherVM.Subject" id="subject" class="subject form-control" placeholder="Subject" aria-label="Subject">
                             </div>
                             <div class="col">
-                                <input type="email" class="form-control" asp-for="@Model.TeacherVM.Email" placeholder="Email" aria-label="Email">
+                                <input type="email" class="form-control" id="email" asp-for="@Model.TeacherVM.Email" placeholder="Email" aria-label="Email">
                             </div>
                             <div class="col">
-                                <input type="text" class="form-control" asp-for="@Model.TeacherVM.Phone" placeholder="Phone" aria-label="Phone">
+                                <input type="text" class="form-control" id="phone" asp-for="@Model.TeacherVM.Phone" placeholder="Phone" aria-label="Phone">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -117,7 +118,42 @@
 @section scripts{
     <script type="text/javascript">
         $("#btn").click(function () {
+            $('#firstName').val('');
+            $('#lastName').val('');
+            $('#dob').val('');
+            $('#gender').val('');
+            $('#subject').val('');
+            $('#email').val('');
+            $('#phone').val('');
             $("#teacherCreateUpdate").modal('show');
         });
+
+        function UpdateTeacher(teacherId)
+        {
+            //alert(teacherId);
+            $.ajax({
+                url: "?handler=UpdateTeacher",
+                method: "GET",
+                data : {id:teacherId},
+                success: function (response) {
+                    //TODO
+                    console.log(response, "response message here")
+                    //if(!response.isSuccess)
+                    //{
+                    //    alert(response.Message)
+                    //}
+                    //console.log(response.Data, response.Data[0])
+                    $('#firstName').val(response.firstName);
+                    $('#lastName').val(response.lastName);
+                    $('#dob').val(response.dob);
+                    $('#gender').val(response.gender);
+                    $('#subject').val(response.subject);
+                    $('#email').val(response.email);
+                    $('#phone').val(response.phone);
+                    $("#teacherCreateUpdate").modal('show');
+                }
+            })
+        }
+
     </script>
 }

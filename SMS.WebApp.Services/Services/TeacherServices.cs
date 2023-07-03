@@ -52,6 +52,7 @@ namespace SMS.WebApp.Services.Services
             var response = await _teacherRepo.GetAllTeachers();
             teacherList.Data = response.Data.Select(s => new TeacherViewModel
             {
+                Id = s.Id,
                 FirstName = s.FirstName,
                 LastName = s.LastName,
                 DOB = s.DOB,
@@ -71,6 +72,7 @@ namespace SMS.WebApp.Services.Services
             var response = await _teacherRepo.GetTeacherByID(teacherID);
             teacherList.Data = response.Data.Select(s => new TeacherViewModel
             {
+                Id = s.Id,
                 FirstName = s.FirstName,
                 LastName = s.LastName,
                 DOB = s.DOB,

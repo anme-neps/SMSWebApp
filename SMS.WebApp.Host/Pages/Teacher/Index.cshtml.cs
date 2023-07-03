@@ -33,5 +33,17 @@ namespace SMS.WebApp.Host.Pages.Teacher
             var response = await _teacherServicesr.CreateTeacher(TeacherVM);
             return RedirectToAction("Index");
         }
+
+        public async Task<IActionResult> OnGetDeleteTeacher(Guid id)
+        {
+            var response = await _teacherServicesr.DeleteTeacher(id);
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> OnGetUpdateTeacher(Guid id)
+        {
+            var response = await _teacherServicesr.GetTeacherByID(id);
+            return new OkObjectResult(response.Data.First());
+        }
     }
 }
