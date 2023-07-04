@@ -113,11 +113,33 @@
             </div>
         </div>
     </div>
+
+    <div class="footer notificationAlert">
+    @{
+        if(Model.Response.Message != null)
+        {
+            if(Model.Response.IsSuccess)
+            {
+                <div class="alert alert-success alert-dismissible fade show">
+                    @Model.Response.Message
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }else
+            {
+                <div class="alert alert-danger alert-dismissible fade show">
+                    @Model.Response.Message
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+        }
+    }
+    </div>
 </div>
 
 @section scripts{
     <script type="text/javascript">
         $("#btn").click(function () {
+            $('#teacherId').val('');
             $('#firstName').val('');
             $('#lastName').val('');
             $('#dob').val('');
@@ -143,10 +165,11 @@
                     //    alert(response.Message)
                     //}
                     //console.log(response.Data, response.Data[0])
+                    $('#teacherId').val(response.id);
                     $('#firstName').val(response.firstName);
                     $('#lastName').val(response.lastName);
-                    $('#dob').val(response.dob);
-                    $('#gender').val(response.gender);
+                    $('#dob').val(response.dob);// TODO man data to date format
+                    $('#gender').val(response.gender); // TODO : map data to select list
                     $('#subject').val(response.subject);
                     $('#email').val(response.email);
                     $('#phone').val(response.phone);

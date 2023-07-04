@@ -90,6 +90,7 @@ namespace SMS.WebApp.Services.Services
         {
             Teacher data = new Teacher
             {
+                Id = teacherArgs.Id,
                 FirstName = teacherArgs.FirstName,
                 LastName = teacherArgs.LastName,
                 DOB = teacherArgs.DOB,
