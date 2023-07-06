@@ -1,19 +1,22 @@
-﻿using SMS.WebApp.Data.Helper;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SMS.WebApp.Data.Models.DataModels
+namespace SMS.WebApp.Data.Models.ViewModels
 {
-    public class Course : BaseModel
+    public class CourseViewModel
     {
+        [Required]
         public Guid Id { get; set; }
+        [Required]
         public string CourseName { get; set; }
-        [ForeignKey("TeacherId")]
+        [Required]
         public Guid TeacherId { get; set; }
-        public Teacher Teacher{ get; set;}
+        [Required]
+        public string TeacherFullName { get; set; }
     }
 }

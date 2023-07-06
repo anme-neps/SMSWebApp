@@ -3,6 +3,7 @@ using SMS.WebApp.Core.IRepositories;
 using SMS.WebApp.Data;
 using SMS.WebApp.Data.Helper;
 using SMS.WebApp.Data.Models.DataModels;
+using SMS.WebApp.Data.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,13 +60,33 @@ namespace SMS.WebApp.Core.Repositories
             }
             return result;
         }
-
-        public async Task<DataResult<Course>> GetAllCourse()
+        // Just a Example
+        public async Task<IEnumerable<Course>> GetAllCourseAsEnumerable()
         {
-            DataResult<Course> result = new DataResult<Course>();
+            var data = _context.Courses.Where(args => args.IsDeleted == false).Select(s => new Course 
+            { 
+                CourseName = s.CourseName, 
+                TeacherId = s.TeacherId 
+            });
+            // select * from Courses Where IsDeleted = flase
+            // select CourseName from Courses Where IsDeleted = flase
+            // select CourseName, TechareId from Courses Where IsDeleted = flase
+            return data;
+        }
+
+        public async Task<DataResult<CourseViewModel>> GetAllCourse()
+        {
+            DataResult<CourseViewModel> result = new DataResult<CourseViewModel>();
             try
             {
-                result.Data = await _context.Courses.Where(a => a.IsDeleted == false).ToListAsync();
+                result.Data = await _context.Courses
+                                            .Where(a => a.IsDeleted == false).Select(s => new CourseViewModel
+                                            { 
+                                                Id = s.Id,
+                                                CourseName = s.CourseName,
+                                                TeacherId = s.TeacherId,
+                                                TeacherFullName = s.Teacher.FirstName + " " + s.Teacher.LastName
+                                            }).ToListAsync();
                 result.IsSuccess = true;
                 result.Message = "Get all courses successful";
             }
@@ -77,12 +98,18 @@ namespace SMS.WebApp.Core.Repositories
             return result;
         }
 
-        public async Task<DataResult<Course>> GetCourseById(Guid courseId)
+        public async Task<DataResult<CourseViewModel>> GetCourseById(Guid courseId)
         {
-            DataResult<Course> result = new DataResult<Course>();
+            DataResult<CourseViewModel> result = new DataResult<CourseViewModel>();
             try
             {
-                result.Data = await _context.Courses.Where(a => a.IsDeleted == false && a.Id == courseId).ToListAsync();
+                result.Data = await _context.Courses.Where(a => a.IsDeleted == false && a.Id == courseId).Select(s => new CourseViewModel
+                {
+                    Id = s.Id,
+                    CourseName = s.CourseName,
+                    TeacherId = s.TeacherId,
+                    TeacherFullName = s.Teacher.FirstName + " " + s.Teacher.LastName
+                }).ToListAsync();
                 result.IsSuccess = true;
                 result.Message = "Get courses successful";
             }
