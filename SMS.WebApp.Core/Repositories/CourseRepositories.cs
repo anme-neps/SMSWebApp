@@ -79,14 +79,18 @@ namespace SMS.WebApp.Core.Repositories
             DataResult<CourseViewModel> result = new DataResult<CourseViewModel>();
             try
             {
-                result.Data = await _context.Courses
-                                            .Where(a => a.IsDeleted == false).Select(s => new CourseViewModel
-                                            { 
-                                                Id = s.Id,
-                                                CourseName = s.CourseName,
-                                                TeacherId = s.TeacherId,
-                                                TeacherFullName = s.Teacher.FirstName + " " + s.Teacher.LastName
-                                            }).ToListAsync();
+                var data = await _context.Courses.Where(a => a.IsDeleted == false).ToListAsync();
+                if (data.Count != 0)
+                {
+                    result.Data = data.Select(s => new CourseViewModel
+                                       {
+                                            Id = s.Id,
+                                            CourseName = s.CourseName,
+                                            TeacherId = s.TeacherId,
+                                            TeacherFullName = s.Teacher.FirstName + " " + s.Teacher.LastName
+                                       }).ToList();
+
+                }
                 result.IsSuccess = true;
                 result.Message = "Get all courses successful";
             }

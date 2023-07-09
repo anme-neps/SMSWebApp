@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using SMS.WebApp.Data.Helper;
 using SMS.WebApp.Data.Models.Enums;
 using SMS.WebApp.Data.Models.ViewModels;
@@ -47,6 +48,15 @@ namespace SMS.WebApp.Host.Pages.Teacher
             return RedirectToAction("Index", response);
         }
 
+        public async Task<PartialViewResult> OnGetViewAllPartial()
+        {
+            //Customers = await _customer.GetAllAsync();
+            return new PartialViewResult
+            {
+                ViewName = "_ViewAll",
+                //ViewData = new ViewDataDictionary<IEnumerable<Customer>>(ViewData, Customers)
+            };
+        }
         public async Task<IActionResult> OnGetDeleteTeacher(Guid id)
         {
             var response = await _teacherServicesr.DeleteTeacher(id);

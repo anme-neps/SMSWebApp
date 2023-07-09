@@ -54,7 +54,7 @@
             }
         </tbody>
     </table>
-    
+    <div id="viewAll" class="card-body"></div>
     <!-- Modal -->
     <div class="modal fade" id="teacherCreateUpdate" tabindex="-1" aria-labelledby="teacherCreateUpdate" aria-hidden="true">
         <div class="modal-dialog">
@@ -106,6 +106,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" id="viewbtn" class="btn btn-secondary" data-bs-dismiss="modal">Demo</button>
                             <input type="submit" value="Save" class="btn btn-primary" />
                         </div>
                     </form>
@@ -148,6 +149,11 @@
             $('#email').val('');
             $('#phone').val('');
             $("#teacherCreateUpdate").modal('show');
+        });
+
+        $("#viewbtn").click(function () {
+            $('#viewAll').load('?handler=ViewAllPartial');
+
         });
 
         function UpdateTeacher(teacherId)
