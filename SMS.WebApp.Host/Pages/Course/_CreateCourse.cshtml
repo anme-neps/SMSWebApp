@@ -1,6 +1,38 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model CourseViewModel
 @{
-}
-<p> this is partial view example</p>
+    
+} 
+<div class="modal-content modalContainer">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Create Course</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <form method="post" asp-page="/Course/Index" asp-page-handler="AddCourse">
+            <div class="row g-3 form-space">
+                <div class="col">
+                    <input type="text" class="form-control hidden" asp-for="@Model.Id" id="teacherId" />
+                    <input type="text" class="form-control" asp-for="@Model.CourseName" id="courseName" class="courseName form-control" placeholder="Course Name">
+                </div>
+                <div class="col">
+                    <select class="form-select" asp-for="@Model.TeacherId" id="teacher" aria-label="Teacher">
+                        <option selected>Select Teacher</option>
+                        @{
+                            if (Model.Teachers.Count() > 0)
+                            {
+                                foreach (var item in Model.Teachers)
+                                {
+                                    <option value="@item.Id">@item.FirstName @item.LastName</option>
+                                }
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

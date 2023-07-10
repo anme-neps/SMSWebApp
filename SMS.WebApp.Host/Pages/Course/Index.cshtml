@@ -3,7 +3,7 @@
 @{
 }
 <div class="container">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" id="addbtn">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" id="addbtn" data-bs-target="#createModal">
         <i class="fa-solid fa-plus"></i> Add
     </button>
     <table class="table table-hover">
@@ -43,7 +43,10 @@
             }
         </tbody>
     </table>
-    <div id="createModal" class="card"></div>
+    <div class="modal fade" tabindex="-1" aria-labelledby="teacherCreateUpdate" id="createModal" aria-hidden="true">
+        <div class="modal-dialog">
+        </div>
+    </div>
 </div>
 
 @section scripts {

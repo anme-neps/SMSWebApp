@@ -18,5 +18,6 @@ namespace SMS.WebApp.Data.Models.ViewModels
         public Guid TeacherId { get; set; }
         [Required]
         public string TeacherFullName { get; set; }
+        public List<TeacherViewModel> Teachers { get; set; }
     }
 }

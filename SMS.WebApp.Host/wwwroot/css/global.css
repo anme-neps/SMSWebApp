@@ -11,3 +11,8 @@
     background: transparent;
     border: hidden;
 }
+.modalContainer {
+    margin: auto;
+    margin-top: 20%;
+    width: 50%;
+}
