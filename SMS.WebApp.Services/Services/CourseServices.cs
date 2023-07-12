@@ -1,6 +1,7 @@
 ﻿using SMS.WebApp.Core.IRepositories;
 using SMS.WebApp.Data.Helper;
 using SMS.WebApp.Data.Models.DataModels;
+using SMS.WebApp.Data.Models.RequestModels;
 using SMS.WebApp.Data.Models.ViewModels;
 using SMS.WebApp.Services.IServices;
 using System;
@@ -41,9 +42,9 @@ namespace SMS.WebApp.Services.Services
             return response;
         }
 
-        public async Task<DataResult<CourseViewModel>> GetAllCourse()
+        public async Task<DataResult<CourseViewModel>> GetAllCourse(RequestQueryParams queryParams)
         {
-            var response = await _repository.GetAllCourse();
+            var response = await _repository.GetAllCourse(queryParams);
             return response;
         }
 

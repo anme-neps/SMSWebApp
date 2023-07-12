@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using SMS.WebApp.Data.Models.RequestModels;
 using SMS.WebApp.Data.Models.ViewModels;
 using SMS.WebApp.Services.IServices;
 
@@ -10,6 +11,8 @@ namespace SMS.WebApp.Host.Pages.Course
     {
         [BindProperty]
         public List<CourseViewModel>? CourseList { get; set; }
+        [BindProperty]
+        public int TotalCount { get; set; }
         private readonly ICourseServices _courseServices;
         private readonly ITeacherServicesr _teacherServices;
         public IndexModel(ICourseServices courseServices, ITeacherServicesr teacherServices)
@@ -17,12 +20,18 @@ namespace SMS.WebApp.Host.Pages.Course
             _courseServices = courseServices;
             _teacherServices = teacherServices;
         }
-        public async Task OnGet()
+        public async Task OnGet(int pageSize, int currentPage)
         {
-            var response = await _courseServices.GetAllCourse();
+            RequestQueryParams queryParams = new RequestQueryParams
+            {
+                PageSize = pageSize == 0 ? 5 : pageSize, 
+                CurrentPage = currentPage == 0 ? 1 : currentPage
+            };
+            var response = await _courseServices.GetAllCourse(queryParams);
             if (response.Data != null)
             {
                 CourseList = response.Data;
+                TotalCount = response.TotalCount;
             }
         }
 

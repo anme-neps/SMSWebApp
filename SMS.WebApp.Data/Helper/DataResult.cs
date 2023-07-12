@@ -15,6 +15,7 @@ namespace SMS.WebApp.Data.Helper
     {
         public bool IsSuccess { get; set; }
         public string Message { get; set; }
+        public int TotalCount { get; set; }
         public List<T> Data { get; set; }
     }
 }

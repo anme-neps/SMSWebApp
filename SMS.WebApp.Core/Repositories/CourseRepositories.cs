@@ -3,6 +3,7 @@ using SMS.WebApp.Core.IRepositories;
 using SMS.WebApp.Data;
 using SMS.WebApp.Data.Helper;
 using SMS.WebApp.Data.Models.DataModels;
+using SMS.WebApp.Data.Models.RequestModels;
 using SMS.WebApp.Data.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -74,7 +75,7 @@ namespace SMS.WebApp.Core.Repositories
             return data;
         }
 
-        public async Task<DataResult<CourseViewModel>> GetAllCourse()
+        public async Task<DataResult<CourseViewModel>> GetAllCourse(RequestQueryParams queryParams)
         {
             DataResult<CourseViewModel> result = new DataResult<CourseViewModel>();
             try
@@ -88,9 +89,14 @@ namespace SMS.WebApp.Core.Repositories
                                             CourseName = s.CourseName,
                                             TeacherId = s.TeacherId,
                                             TeacherFullName = s.Teacher.FirstName + " " + s.Teacher.LastName
-                                       }).ToList();
+                                       })
+                                        .OrderBy(o => o.Id)
+                                        .Skip((queryParams.TotalCount -1) * queryParams.PageSize)
+                                        .Take(queryParams.PageSize)
+                                        .ToList();
 
                 }
+                result.TotalCount = data.Count;
                 result.IsSuccess = true;
                 result.Message = "Get all courses successful";
             }
