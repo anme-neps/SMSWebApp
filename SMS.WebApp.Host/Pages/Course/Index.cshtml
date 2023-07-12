@@ -23,10 +23,13 @@
                         <td>@item.CourseName</td>
                         <td>@item.TeacherFullName</td>
                         <td>
-                            <button id="updateCourse" onclick="UpdateTeacher('@item.Id')" class="transparentButton">
+@*                            <button id="updateCourse" onclick="UpdateCourse('@item.Id')" class="transparentButton">
+                                <i class="fa-solid fa-pencil"></i>
+                            </button>*@
+                            <button class="transparentButton" data-bs-toggle="modal" onclick="UpdateCourse('@item.Id')" id="updatebtn" data-bs-target="#updateModal">
                                 <i class="fa-solid fa-pencil"></i>
                             </button>
-                            <a asp-page="/Teacher/Index" asp-route-id="@item.Id" class="deleteButton" asp-page-handler="DeleteCourse" role="button">
+                            <a asp-page="/Course/Index" asp-route-id="@item.Id" class="deleteButton" asp-page-handler="DeleteCourse" role="button">
                                 <i class="fa-solid fa-trash"></i>
                             </a>
                         </td>
@@ -43,7 +46,13 @@
             }
         </tbody>
     </table>
+    @*Create Modal*@
     <div class="modal fade" tabindex="-1" aria-labelledby="teacherCreateUpdate" id="createModal" aria-hidden="true">
+        <div class="modal-dialog">
+        </div>
+    </div>
+    @*Update Modal*@
+    <div class="modal fade" tabindex="-1" aria-labelledby="teacherCreateUpdate" id="updateModal" aria-hidden="true">
         <div class="modal-dialog">
         </div>
     </div>
@@ -54,5 +63,8 @@
         $('#addbtn').click(function() {
             $('#createModal').load('?handler=CreateCourse')
         })
+        function UpdateCourse(courseId) {
+            $('#updateModal').load('?handler=UpdateCourse&id=' + courseId)
+        }
     </script>
 }

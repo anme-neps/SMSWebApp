@@ -40,10 +40,33 @@ namespace SMS.WebApp.Host.Pages.Course
             };
         }
 
+        public async Task<PartialViewResult> OnGetUpdateCourse(Guid id)
+        {
+            var teacherList = await _teacherServices.GetAllTeachers();
+            var course = await _courseServices.GetCourseById(id);
+            var courseModel = course.Data.First();
+            courseModel.Teachers = teacherList.Data;
+            return new PartialViewResult
+            {
+                ViewName = "_UpdateCourse",
+                ViewData = new ViewDataDictionary<CourseViewModel>(ViewData, courseModel)
+            };
+        }
+
         public async Task<IActionResult> OnPostAddCourse(CourseViewModel courseArgs)
         {
             var response = await _courseServices.CreateCourse(courseArgs);
             if (response.IsSuccess)
+            {
+                return RedirectToAction("/Course/Index");
+            }
+            return Page();
+        }
+
+        public async Task<IActionResult> OnGetDeleteCourse(Guid courseId)
+        {
+            var response = await _courseServices.DeleteCourse(courseId);
+            if(response.IsSuccess)
             {
                 return RedirectToAction("/Course/Index");
             }
