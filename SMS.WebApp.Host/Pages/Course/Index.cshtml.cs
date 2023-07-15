@@ -12,7 +12,7 @@ namespace SMS.WebApp.Host.Pages.Course
         [BindProperty]
         public List<CourseViewModel>? CourseList { get; set; }
         [BindProperty]
-        public int TotalCount { get; set; }
+        public int PageCount { get; set; }
         private readonly ICourseServices _courseServices;
         private readonly ITeacherServicesr _teacherServices;
         public IndexModel(ICourseServices courseServices, ITeacherServicesr teacherServices)
@@ -22,16 +22,17 @@ namespace SMS.WebApp.Host.Pages.Course
         }
         public async Task OnGet(int pageSize, int currentPage)
         {
+            //HttpContext.Session.GetString("Demo");
             RequestQueryParams queryParams = new RequestQueryParams
             {
-                PageSize = pageSize == 0 ? 5 : pageSize, 
+                PageSize = pageSize == 0 ? 1 : pageSize, 
                 CurrentPage = currentPage == 0 ? 1 : currentPage
             };
             var response = await _courseServices.GetAllCourse(queryParams);
             if (response.Data != null)
             {
                 CourseList = response.Data;
-                TotalCount = response.TotalCount;
+                PageCount = Convert.ToInt32(Math.Ceiling(response.TotalCount / (double)queryParams.PageSize));
             }
         }
 

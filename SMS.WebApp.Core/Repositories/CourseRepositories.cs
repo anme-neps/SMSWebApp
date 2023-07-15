@@ -80,7 +80,7 @@ namespace SMS.WebApp.Core.Repositories
             DataResult<CourseViewModel> result = new DataResult<CourseViewModel>();
             try
             {
-                var data = await _context.Courses.Where(a => a.IsDeleted == false).ToListAsync();
+                var data = await _context.Courses.Where(a => a.IsDeleted == false).OrderBy(o => o.Id).ToListAsync();
                 if (data.Count != 0)
                 {
                     result.Data = data.Select(s => new CourseViewModel
@@ -91,7 +91,7 @@ namespace SMS.WebApp.Core.Repositories
                                             TeacherFullName = s.Teacher.FirstName + " " + s.Teacher.LastName
                                        })
                                         .OrderBy(o => o.Id)
-                                        .Skip((queryParams.TotalCount -1) * queryParams.PageSize)
+                                        .Skip((queryParams.CurrentPage -1) * queryParams.PageSize)
                                         .Take(queryParams.PageSize)
                                         .ToList();
 
