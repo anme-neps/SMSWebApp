@@ -22,6 +22,13 @@ namespace SMS.WebApp.Host
             // add db context
             builder.Services.AddDbContext<SMSDbContext>(options =>
                 options.UseSqlServer(connectionString));
+
+            builder.Services.AddSession(option =>
+            {
+                    option.IdleTimeout = TimeSpan.FromSeconds(100);
+                    option.Cookie.HttpOnly = true;
+                    option.Cookie.IsEssential = true;
+            });
             // used user and roles for token
             builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<SMSDbContext>();
             builder.Services.AddTransient<IAccountRepositories, AccountRepositories>();
@@ -48,7 +55,7 @@ namespace SMS.WebApp.Host
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseSession();
             app.UseAuthentication();
             app.UseAuthorization();
 

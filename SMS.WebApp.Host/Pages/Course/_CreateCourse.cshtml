@@ -8,6 +8,10 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
+        @if(Model.SessionExample != null)
+        {
+            <input type="text" class="form-control" asp-for="@Model.SessionExample" id="teacherId" />
+        }
         <form method="post" asp-page="/Course/Index" asp-page-handler="AddCourse">
             <div class="row g-3 form-space">
                 <div class="col">

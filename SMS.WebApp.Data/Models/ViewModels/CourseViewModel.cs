@@ -19,5 +19,6 @@ namespace SMS.WebApp.Data.Models.ViewModels
         [Required]
         public string TeacherFullName { get; set; }
         public List<TeacherViewModel> Teachers { get; set; }
+        public string SessionExample { get; set; }
     }
 }

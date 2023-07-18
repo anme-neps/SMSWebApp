@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -7,6 +8,8 @@ using SMS.WebApp.Services.IServices;
 
 namespace SMS.WebApp.Host.Pages.Course
 {
+    // Allow Annynomus | Authorize
+    [Authorize]
     public class IndexModel : PageModel
     {
         [BindProperty]
@@ -22,10 +25,11 @@ namespace SMS.WebApp.Host.Pages.Course
         }
         public async Task OnGet(int pageSize, int currentPage)
         {
-            //HttpContext.Session.GetString("Demo");
+            //Set Session
+            HttpContext.Session.SetString("sessionDemo", "Value Stored in Session");
             RequestQueryParams queryParams = new RequestQueryParams
             {
-                PageSize = pageSize == 0 ? 1 : pageSize, 
+                PageSize = pageSize == 0 ? 1 : pageSize,
                 CurrentPage = currentPage == 0 ? 1 : currentPage
             };
             var response = await _courseServices.GetAllCourse(queryParams);
@@ -38,10 +42,13 @@ namespace SMS.WebApp.Host.Pages.Course
 
         public async Task<PartialViewResult> OnGetCreateCourse()
         {
+            //Get Session 
+            var sess = HttpContext.Session.GetString("sessionDemo");
             var teacherList = await _teacherServices.GetAllTeachers();
             CourseViewModel courseModel = new CourseViewModel
             {
-                Teachers = teacherList.Data
+                Teachers = teacherList.Data,
+                SessionExample = sess
             };
             return new PartialViewResult
             {

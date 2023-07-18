@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -8,6 +9,7 @@ using SMS.WebApp.Services.IServices;
 
 namespace SMS.WebApp.Host.Pages.Teacher
 {
+    //[Authorize]
     public class IndexModel : PageModel
     {
         [BindProperty]

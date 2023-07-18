@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SMS.WebApp.Data.Models.Enums;
@@ -6,6 +7,7 @@ using SMS.WebApp.Services.IServices;
 
 namespace SMS.WebApp.Host.Pages.Student
 {
+    [Authorize]
     public class CreateModel : PageModel
     {
         private readonly IStudentServices _studentServices;
