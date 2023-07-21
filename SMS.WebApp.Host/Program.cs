@@ -39,6 +39,7 @@ namespace SMS.WebApp.Host
             builder.Services.AddTransient<ITeacherServicesr, TeacherServices>();
             builder.Services.AddTransient<ICourseRepositories, CourseRepositories>();
             builder.Services.AddTransient<ICourseServices, CourseServices>();
+            builder.Services.AddTransient<IImageRepositories, ImageRepositories>();
             builder.Services.AddRazorPages();
 
             var app = builder.Build();

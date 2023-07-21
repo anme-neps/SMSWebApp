@@ -1,0 +1,55 @@
+﻿@page
+@model SMS.WebApp.Host.Pages.Images.IndexModel
+@{
+}
+<div class="container">
+    <a class="btn btn-success" asp-page="/Images/CreateImage" role="button">
+        <i class="fa-solid fa-plus"></i> Add
+    </a>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Image Name</th>
+                <th scope="col">Image</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Imgs.Count > 0)
+            {
+                @foreach (var item in Model.Imgs)
+                {
+                    <tr>
+                        <td class="hidden">@item.ImageId</td>
+                        <td>@item.Title</td>
+                        <td>@item.ImageName</td>
+                        <td>
+                            <label asp-for="@item.ImageData" class="control-label h2"></label>
+                            @{
+                                var base64 = Convert.ToBase64String(item.ImageData);
+                                var Image = String.Format("data:image/gif;base64,{0}", base64);
+                            }
+                            <img src="@Image" alt="" class="img-fluid">
+                        </td>
+                        <td>
+                            <form method="post">
+                                <button type="submit" asp-page="/Images/Index" asp-page-handler="Delete" class="deleteButton" asp-route-id="@item.ImageId">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="7" class="text-center">
+                        No data.
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

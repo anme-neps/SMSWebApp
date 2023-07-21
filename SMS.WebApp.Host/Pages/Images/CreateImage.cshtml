@@ -1,0 +1,25 @@
+﻿@page
+@model SMS.WebApp.Host.Pages.Images.CreateImageModel
+@{
+}
+<form method="post" asp-page="Student/Create">
+    <div class="row g-3">
+        <div class="col">
+            <input type="text" asp-for="@Model.Img.Title" class="firstName form-control" placeholder="Title">
+        </div>
+        <div class="col">
+            <input type="text" class="form-control" asp-for="@Model.Img.ImageName" placeholder="Image Name">
+        </div>
+    </div>
+    <div class="row g-3">
+        <div class="col">
+            <label class="control-label"></label>
+            <input asp-for="@Model.Img.ImageFile" accept="image/*" />
+            <span asp-validation-for="@Model.Img.ImageFile" class="text-danger"></span>
+        </div>
+    </div>
+    <div>
+        <input type="submit" class="btn btn-primary" />
+        <a class="btn btn-danger" asp-page="/Images/Index" role="button">Cancel</a>
+    </div>
+</form>
